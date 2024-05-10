@@ -11,7 +11,7 @@ class CoursesPageHandler:
     @staticmethod
     def get_courses_in_semester(
         session: requests_html.HTMLSession, semester_id: Optional[int] = None
-    ):
+    ) -> list[Course]:
         try:
             url = "https://www.pesuacademy.com/Academy/s/studentProfilePESUAdmin"
             query = {
@@ -42,7 +42,12 @@ class CoursesPageHandler:
             course_title = columns[1].text.strip()
             course_type = columns[2].text.strip()
             course_status = columns[3].text.strip()
-            course = Course(course_code, course_title, course_type, course_status)
+            course = Course(
+                code=course_code,
+                title=course_title,
+                _type=course_type,
+                status=course_status,
+            )
             courses.append(course)
         return courses
 

@@ -7,7 +7,7 @@ from pesuacademy import util
 from pesuacademy.models.seating_information import SeatingInformation
 from pesuacademy.util.page import PageHandler
 from .exceptions import CSRFTokenError, AuthenticationError
-from .models import Profile, ClassAndSectionInfo, Course, Announcement
+from .models import Profile, ClassAndSectionInfo, Course, Announcement, SemesterResult
 
 
 class PESUAcademy:
@@ -184,3 +184,17 @@ class PESUAcademy:
             self._csrf_token, start_date, end_date
         )
         return announcements
+
+    def results(
+        self, semester: Optional[int] = None
+    ) -> dict[int, list[SemesterResult]]:
+        """
+        Get the results of the currently authenticated user.
+
+        :param semester: The semester number. If not provided, all results across all semesters are returned.
+        :return: The result information for the given semester.
+        """
+        if not self._authenticated:
+            raise AuthenticationError("You need to authenticate first.")
+        results_info = self.page_handler.get_results(semester)
+        return results_info

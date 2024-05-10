@@ -98,3 +98,7 @@ class PageHandler:
         return self.announcement_handler.get_page(
             self.__session, csrf_token, start_date, end_date
         )
+
+    def get_results(self, semester: Optional[int] = None):
+        semester_ids = self.get_semester_ids_from_semester_number(semester)
+        return pages.ResultsPageHandler.get_page(self.__session, semester_ids)

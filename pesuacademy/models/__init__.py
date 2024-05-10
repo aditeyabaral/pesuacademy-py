@@ -11,3 +11,4 @@ from .profile import (
     QualifyingExamination,
 )
 from .seating_information import SeatingInformation
+from .results import SemesterResult, CourseResult

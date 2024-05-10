@@ -23,12 +23,14 @@ class Course:
         title: str,
         _type: Optional[str] = None,
         status: Optional[str] = None,
+        credits: Optional[int] = None,
         attendance: Optional[Attendance] = None,
     ):
         self.code = code
         self.title = title
         self.type = _type
         self.status = status
+        self.credits = credits
         self.attendance = attendance
 
     def __str__(self):
